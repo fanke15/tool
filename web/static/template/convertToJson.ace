@@ -1,0 +1,17 @@
+= content main
+
+  form.layui-form.layui-form-pane action="" lay-filter="structData"
+    div.layui-form-item.layui-form-text
+      div.layui-row
+        div.layui-col-xs6
+          div.grid-demo.grid-demo-bg1 style="width:95%"
+            label.layui-form-label struct
+            div.layui-input-block
+              textarea.layui-textarea placeholder="请输入 golang struct" name="goStructText" style="min-height:380px"
+        div.layui-col-xs6
+          div.grid-demo.grid-demo-bg1 style="width:95%"
+            label.layui-form-label json
+            div.layui-input-block
+              textarea.layui-textarea name="jsonText" disabled="" style="min-height:380px" {{ ConvertToJson "test" }}
+    div.layui-form-item
+      button.layui-btn.layui-btn-normal#convertClick type="button" convert

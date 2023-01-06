@@ -1,0 +1,39 @@
+= doctype html
+html lang=en
+  head
+    meta charset=utf-8
+    title {{ .title }}
+    link rel="stylesheet" href="/assets/layui/css/layui.css"
+
+  body
+    div.layui-container
+       fieldset.layui-elem-field.layui-field-title
+         legend 工具导航
+       button.layui-btn.layui-btn-radius.layui-btn-sm type=button style="margin:10px;"
+         a href=/page/dashboard/tojson
+           i.layui-icon style="color:rgba(255,255,255,.7);font-size:14px" &#xe691; structToJson
+       button.layui-btn.layui-btn-radius.layui-btn-sm type=button style="margin:10px;"
+         a href=/page/dashboard/dict
+           i.layui-icon style="color:rgba(255,255,255,.7);font-size:14px" &#xe67d; dict
+       div.layui-progress style="margin-top:10px;"
+         div.layui-progress-bar lay-percent="3%"
+       div style="margin-top:20px;"
+         = yield main
+
+
+    script src="/assets/layui/layui.js" type="text/javascript"
+    = javascript
+        (function() {
+            layui.use(['form'],
+            function() {
+                var form = layui.form;
+                var layer = layui.layer;
+                layui.$('#convertClick').on('click',
+                function() {
+
+                    form.val('structData', {
+                        "jsonText": form.val('structData').goStructText
+                    });
+                });
+            });
+        })();
