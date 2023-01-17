@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/fanke15/tool/api/handler"
 	"github.com/fanke15/tool/pkg/lib"
 	"github.com/kataras/iris/v12"
 	"github.com/yosssi/ace"
@@ -55,6 +56,16 @@ func main() {
 				"title": "tool",
 			})
 		})
+	}
+
+	//-----------------------API-----------------------
+	webApi := app.Party("api")
+	{
+		ch := handler.ConvertHandler{}
+		webApi.Post("/convert/tojson", ch.ToJson)
+
+		dict := handler.DictHandler{}
+		webApi.Get("/dict/fields", dict.GetDickFieldList)
 	}
 
 	app.Run(iris.Addr(":8080"), iris.WithoutInterruptHandler)

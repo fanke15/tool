@@ -1,5 +1,8 @@
 = content main
 
+  div.layui-progress style="margin:20px 0px;"
+    div.layui-progress-bar lay-percent="3%"
+
   form.layui-form.layui-form-pane action="" lay-filter="structData"
     div.layui-form-item.layui-form-text
       div.layui-row
@@ -9,9 +12,9 @@
             div.layui-input-block
               textarea.layui-textarea placeholder="请输入 golang struct" name="goStructText" style="min-height:380px"
         div.layui-col-xs6
-          div.grid-demo.grid-demo-bg1 style="width:95%"
+          div.grid-demo.grid-demo-bg1 style="width:95%;float:right"
             label.layui-form-label json
             div.layui-input-block
-              textarea.layui-textarea name="jsonText" disabled="" style="min-height:380px" {{ ConvertToJson "test" }}
+              textarea.layui-textarea name="jsonText" disabled="" style="min-height:380px"
     div.layui-form-item
       button.layui-btn.layui-btn-normal#convertClick type="button" convert

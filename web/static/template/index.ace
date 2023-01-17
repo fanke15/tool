@@ -9,14 +9,13 @@ html lang=en
     div.layui-container
        fieldset.layui-elem-field.layui-field-title
          legend 工具导航
-       button.layui-btn.layui-btn-radius.layui-btn-sm type=button style="margin:10px;"
-         a href=/page/dashboard/tojson
-           i.layui-icon style="color:rgba(255,255,255,.7);font-size:14px" &#xe691; structToJson
-       button.layui-btn.layui-btn-radius.layui-btn-sm type=button style="margin:10px;"
-         a href=/page/dashboard/dict
-           i.layui-icon style="color:rgba(255,255,255,.7);font-size:14px" &#xe67d; dict
-       div.layui-progress style="margin-top:10px;"
-         div.layui-progress-bar lay-percent="3%"
+       div.layui-btn-container
+         button.layui-btn.layui-btn-radius.layui-btn-primary.layui-border-black.layui-btn-sm type=button style="margin:10px"
+           a href=/page/dashboard/tojson
+             i.layui-icon style="color:#686868;font-size:14px" &#xe60a; structToJson
+         button.layui-btn.layui-btn-radius.layui-btn-primary.layui-border-black.layui-btn-sm type=button style="margin:10px;"
+           a href=/page/dashboard/dict
+             i.layui-icon style="color:#686868;font-size:14px" &#xe705; dict
        div style="margin-top:20px;"
          = yield main
 
@@ -24,16 +23,83 @@ html lang=en
     script src="/assets/layui/layui.js" type="text/javascript"
     = javascript
         (function() {
-            layui.use(['form'],
+            layui.use(['form','layer','table'],
             function() {
                 var form = layui.form;
                 var layer = layui.layer;
+                var table = layui.table;
+
+                $ = layui.jquery;
                 layui.$('#convertClick').on('click',
                 function() {
+                    $.ajax({
+                        url: "/api/convert/tojson",
+                        data: JSON.stringify({
+                            'struct_text': form.val('structData').goStructText
+                        }),
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function(data) {
+                            console.log(data)
+                            if ( data.msg != "" ) {
+                                layer.msg(data.msg);
+                            } else {
+                                form.val('structData', {
+                                    "jsonText": JSON.stringify(data.data,null,'\t')
+                                });
 
-                    form.val('structData', {
-                        "jsonText": form.val('structData').goStructText
+                                location.reload()
+                            }
+                        },
+                        error: function(data) {
+                            console.log(data.msg)
+                        }
                     });
+                });
+
+                table.render({
+                    elem: '#dictData',
+                    // url: '/api/dict/fields',
+                    page: true,
+                    data: [
+                          	{
+                          		"field": "DepositAvax",
+                          		"type": "decimal.Decimal",
+                          		"desc": "amount to supply"
+                          	},
+                          	{
+                          		"field": "DepositSavax",
+                          		"type": "decimal.Decimal",
+                          		"desc": "amount to supply"
+                          	},
+                          	{
+                          		"field": "HistoryAvax",
+                          		"type": "decimal.Decimal",
+                          		"desc": "amount to supply"
+                          	},
+                          	{
+                          		"field": "HistorySavax",
+                          		"type": "decimal.Decimal",
+                          		"desc": "amount to supply"
+                          	},
+                          	{
+                          		"field": "UserAccount",
+                          		"type": "string",
+                          		"desc": ""
+                          	},
+                          	{
+                          		"field": "UserId",
+                          		"type": "uint",
+                          		"desc": ""
+                          	}
+                          ],
+                    cols: [[
+                        {field: 'field',title: '字段名称'},
+                        {field: 'type',title: '类型'},
+                        {field: 'desc',title: '描述'}
+                    ]]
                 });
             });
         })();
+

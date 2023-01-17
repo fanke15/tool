@@ -1,4 +1,33 @@
 = content main
-  h3 sql field dict.
+
+  div.layui-progress style="margin:20px 0px;"
+    div.layui-progress-bar lay-percent="6%"
+
+  div.layui-btn-group
+    button.layui-btn.layui-btn-sm type="button" title="导入词典json数据"
+      i.layui-icon &#xe608;
+    button.layui-btn.layui-btn-normal.layui-btn-sm type="button" title="缓存词典"
+      i.layui-icon &#x1005;
+    button.layui-btn.layui-btn-warm.layui-btn-sm type="button" title="刷新页面"
+      i.layui-icon &#xe9aa;
+    button.layui-btn.layui-btn-danger.layui-btn-sm type="button" title="删除词典"
+      i.layui-icon &#xe640;
+
+  div.layui-tab
+    ul.layui-tab-title
+      li.layui-this one
+      li two
+      li three
+      li four
+      li five
+    div.layui-tab-content
+      div.layui-tab-item.layui-show
+        table#dictData lay-filter="dictData"
+
+
+
+
+
+
 
 
